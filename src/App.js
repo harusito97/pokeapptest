@@ -3,15 +3,16 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, Outlet} from "react-router-dom";
 import './App.css';
-import {capitalize} from "@mui/material";
 
-function App(props) {
+
+
+function App() {
 
     const [poke, getPokemons] = useState(null);
 
     useEffect(() => {
         axios({method: "get",
-            url: "",})
+            url: "https://pokeapi.co/api/v2/pokemon?limit=1154",})
             .then((response)=>{
                 const data = response.data
                 getPokemons(data)
@@ -26,13 +27,12 @@ function App(props) {
 
 
     return (
-
-        <section className="section" >
-            <div className="App container">
+        <section className="App section" >
+            <div className="container">
                 <Outlet />
                 <div className="gridView">
                     {poke && poke.results.map(pokemon => (
-                        <Link to={"/pokemon/"+pokemon.name}>{capitalize(pokemon.name)}</Link>
+                        <p><Link to={"/pokemon/"+pokemon.name}>{capitalized(pokemon.name)}</Link></p>
                     ))}
                 </div>
             </div>
