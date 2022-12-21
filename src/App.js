@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, Outlet} from "react-router-dom";
 import './App.css';
+import {capitalize} from "@mui/material";
 
 
 
@@ -32,7 +33,7 @@ function App() {
                 <Outlet />
                 <div className="gridView">
                     {poke && poke.results.map(pokemon => (
-                        <p><Link to={"/pokemon/"+pokemon.name}>{capitalized(pokemon.name)}</Link></p>
+                        <p><Link to={"/pokemon/"+pokemon.name}>{capitalize(pokemon.name)}</Link></p>
                     ))}
                 </div>
             </div>

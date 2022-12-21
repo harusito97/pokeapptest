@@ -2,47 +2,11 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import './App.css';
-import {useLoaderData, useParams} from "react-router-dom";
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import {useParams} from "react-router-dom";
 import {capitalize} from "@mui/material";
-
-import { letterFrequency } from '@visx/mock-data';
-import { Group } from '@visx/group';
-import { Bar } from '@visx/shape';
-import { scaleLinear, scaleBand } from '@visx/scale';
 
 
 function PokeData() {
-
-
-    const data = letterFrequency;
-
-    const width = 500;
-    const height = 500;
-    const margin = { top: 20, bottom: 20, left: 20, right: 20 };
-
-    const xMax = width - margin.left - margin.right;
-    const yMax = height - margin.top - margin.bottom;
-
-    const x = d => d.letter;
-    const y = d => +d.frequency * 100;
-
-    const xScale = scaleBand({
-        range: [0, xMax],
-        round: true,
-        domain: data.map(x),
-        padding: 0.4,
-    });
-    const yScale = scaleLinear({
-        range: [yMax, 0],
-        round: true,
-        domain: [0, Math.max(...data.map(y))],
-    });
-
-    const compose = (scale, accessor) => data => scale(accessor(data));
-    const xPoint = compose(xScale, x);
-    const yPoint = compose(yScale, y);
-
     const [pokemon, getPokemonData] = useState(null);
     const { pokeid } = useParams();
 
@@ -71,7 +35,6 @@ function PokeData() {
     if(pokemon == null) {
         return "Loading";
     }
-
     return (
         <section className="section PokeData">
             <div className="container">
@@ -91,26 +54,10 @@ function PokeData() {
                         </div>
                         <div className="columns">
                             <div className="column is-one-third is-offset-4">
-                                {/*<img src={pokemon.sprites.front_default} />*/}
-                                {/*<img src={pokemon.sprites.back_default} />*/}
-                                {/*<img src={pokemon.sprites.front_shiny} />*/}
-                                {/*<img src={pokemon.sprites.back_shiny} />*/}
-                                <svg width={width} height={height}>
-                                    {data.map((d, i) => {
-                                        const barHeight = yMax - yPoint(d);
-                                        return (
-                                            <Group key={`bar-${i}`}>
-                                                <Bar
-                                                    x={xPoint(d)}
-                                                    y={yMax - barHeight}
-                                                    height={barHeight}
-                                                    width={xScale.bandwidth()}
-                                                    fill="#fc2e1c"
-                                                />
-                                            </Group>
-                                        );
-                                    })}
-                                </svg>
+                                <img src={pokemon.sprites.front_default} />
+                                <img src={pokemon.sprites.back_default} />
+                                <img src={pokemon.sprites.front_shiny} />
+                                <img src={pokemon.sprites.back_shiny} />
                             </div>
                         </div>
                     </div>
@@ -129,6 +76,12 @@ function getTypes(types){
     return typeString;
 }
 
+// function getStats(stats){
+//     const bruh = [];
+//     stats.forEach(elem => bruh.push(elem.stat.name));
+//     return bruh;
+// }
+
 function getStatsTable(stats){
     return (<>
         <table className="table">
@@ -146,9 +99,6 @@ function getStatsTable(stats){
             <tr><td><p>{capitalize(stats[5].stat.name)}</p> </td> <td><p>{stats[5].base_stat}</p></td> <td><p>{stats[5].effort}</p></td></tr>
             </tbody>
         </table>
-        <div className="column is-one-quarter">
-
-        </div>
     </>)
 }
 
