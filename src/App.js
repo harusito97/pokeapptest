@@ -5,8 +5,6 @@ import {Link, Outlet} from "react-router-dom";
 import './App.css';
 import {capitalize} from "@mui/material";
 
-
-
 function App() {
 
     const [poke, getPokemons] = useState(null);
@@ -25,7 +23,6 @@ function App() {
                 }
         })
     }, [])
-
 
     return (
         <section className="App section" >

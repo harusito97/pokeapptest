@@ -76,12 +76,6 @@ function getTypes(types){
     return typeString;
 }
 
-// function getStats(stats){
-//     const bruh = [];
-//     stats.forEach(elem => bruh.push(elem.stat.name));
-//     return bruh;
-// }
-
 function getStatsTable(stats){
     return (<>
         <table className="table">
